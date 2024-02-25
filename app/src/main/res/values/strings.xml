@@ -30,7 +30,7 @@
     <string name="about_email">电子邮箱</string>
     <string name="about_myEmail">我的邮箱：xxx@outlook.com</string>
     <string name="about_sourceCode">源代码</string>
-    <string name="about_codeLink">我的代码托管在：</string>
+    <string name="about_codeLink">我的代码托管在：https://github.com/AlenWangmx/MyFirst_APP</string>
     <string name="about_CanKao">项目参考：https://www.bilibili.com/video/BV1Ey4y1k73N</string>
     <string name="about_CodeCanKao">源代码参考：https://gitee.com/happyanimee/simple-bookkeeping</string>
 
