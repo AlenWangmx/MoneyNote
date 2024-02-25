@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey_f3">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/item_mainLv_top_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moth_out"/>
+        
+        <TextView
+            android:id="@+id/item_mainLv_top_tv1Out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0"
+            android:layout_below="@id/item_mainLv_top_tv1"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/item_mainLv_top_ivHide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ih_show"
+            android:layout_alignTop="@id/item_mainLv_top_tv1Out"/>
+
+        <TextView
+            android:id="@+id/item_mainLv_top_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moth_in"
+            android:layout_below="@id/item_mainLv_top_tv1Out"/>
+
+        <TextView
+            android:id="@+id/item_mainLv_top_tv2In"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="$0"
+            android:layout_below="@id/item_mainLv_top_tv1Out"
+            android:layout_toRightOf="@id/item_mainLv_top_tv2"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/item_mainLv_top_tvBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/item_mainLv_top_tv2"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/item_mainLv_top_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_mainLv_top_tv2"
+            android:layout_toLeftOf="@id/item_mainLv_top_tvBudget"
+            android:text="@string/budget_remain" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_mainLv_top_tvDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="今日支出 ￥0 收入 ￥0"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>
