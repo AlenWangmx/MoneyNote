@@ -62,18 +62,26 @@ public class DBManager {
         List<AccountBean>list=new ArrayList<>();
         String sql="select * from accounttb where year=? and month=? and day=? order by id desc";
         Cursor cursor = db.rawQuery(sql, new String[]{year + "", month + "", day + ""});
-        //遍历符合要求的每一行数据
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-            String typeName = cursor.getString(cursor.getColumnIndexOrThrow("typeName"));
-            String tip = cursor.getString(cursor.getColumnIndexOrThrow("tip"));
-            String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
-            int sImgID = cursor.getInt(cursor.getColumnIndexOrThrow("sImgID"));
+        try {
+            //遍历符合要求的每一行数据
+            while(cursor.moveToNext()){
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String typeName = cursor.getString(cursor.getColumnIndexOrThrow("typeName"));
+                String tip = cursor.getString(cursor.getColumnIndexOrThrow("tip"));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
+                int sImgID = cursor.getInt(cursor.getColumnIndexOrThrow("sImgID"));
 
-            int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
-            float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
-            AccountBean accountBean = new AccountBean(id, typeName, tip, sImgID, money, time, year, month, day, kind);
-            list.add(accountBean);
+                int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
+                AccountBean accountBean = new AccountBean(id, typeName, tip, sImgID, money, time, year, month, day, kind);
+                list.add(accountBean);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return  list;
     }
@@ -85,20 +93,28 @@ public class DBManager {
         List<AccountBean>list=new ArrayList<>();
         String sql="select * from accounttb where year=? and month=? order by id desc";
         Cursor cursor = db.rawQuery(sql, new String[]{year + "", month + ""});
-        //遍历符合要求的每一行数据
-        while(cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-            String typeName = cursor.getString(cursor.getColumnIndexOrThrow("typeName"));
-            String tip = cursor.getString(cursor.getColumnIndexOrThrow("tip"));
-            String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
-            int sImgID = cursor.getInt(cursor.getColumnIndexOrThrow("sImgID"));
-            int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
-            float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
-            int day=cursor.getInt(cursor.getColumnIndexOrThrow("day"));
-            AccountBean accountBean = new AccountBean(id, typeName, tip, sImgID, money, time, year, month, day, kind);
-            list.add(accountBean);
+        try {
+            //遍历符合要求的每一行数据
+            while(cursor.moveToNext()){
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String typeName = cursor.getString(cursor.getColumnIndexOrThrow("typeName"));
+                String tip = cursor.getString(cursor.getColumnIndexOrThrow("tip"));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
+                int sImgID = cursor.getInt(cursor.getColumnIndexOrThrow("sImgID"));
+                int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
+                int day=cursor.getInt(cursor.getColumnIndexOrThrow("day"));
+                AccountBean accountBean = new AccountBean(id, typeName, tip, sImgID, money, time, year, month, day, kind);
+                list.add(accountBean);
+            }
+            return  list;
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
-        return  list;
     }
 
     //获取某一天的收支总金额
@@ -106,10 +122,18 @@ public class DBManager {
         float total=0.0f;
         String sql="select sum(money) from accounttb where year=? and month=? and day=? and kind=?";
         Cursor cursor = db.rawQuery(sql, new String[]{year + "", month + "", day + "", kind + ""});
-        //遍历
-        if (cursor.moveToFirst()) {
-            float money = cursor.getFloat(cursor.getColumnIndexOrThrow("sum(money)"));
-            total=money;
+        try {
+            //遍历
+            if (cursor.moveToFirst()) {
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("sum(money)"));
+                total=money;
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return total;
     }
@@ -119,10 +143,18 @@ public class DBManager {
         float total=0.0f;
         String sql="select sum(money) from accounttb where year=? and month=? and kind=?";
         Cursor cursor = db.rawQuery(sql, new String[]{year + "", month + "", kind + ""});
-        //遍历
-        if (cursor.moveToFirst()) {
-            float money = cursor.getFloat(cursor.getColumnIndexOrThrow("sum(money)"));
-            total=money;
+        try {
+            //遍历
+            if (cursor.moveToFirst()) {
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("sum(money)"));
+                total=money;
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return total;
     }
@@ -133,9 +165,17 @@ public class DBManager {
         String sql="select sum(money) from accounttb where year=? and kind=?";
         Cursor cursor = db.rawQuery(sql, new String[]{year + "", kind + ""});
         //遍历
-        if (cursor.moveToFirst()) {
-            float money = cursor.getFloat(cursor.getColumnIndexOrThrow("sum(money)"));
-            total=money;
+        try {
+            if (cursor.moveToFirst()) {
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("sum(money)"));
+                total=money;
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return total;
     }
@@ -155,19 +195,27 @@ public class DBManager {
         List<AccountBean>list=new ArrayList<>();
         String sql="select * from accounttb where tip like '%"+remark+"%'";
         Cursor cursor = db.rawQuery(sql, null);
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
-            String typeName = cursor.getString(cursor.getColumnIndexOrThrow("typeName"));
-            String bz = cursor.getString(cursor.getColumnIndexOrThrow("tip"));
-            String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
-            int sImgID = cursor.getInt(cursor.getColumnIndexOrThrow("sImgID"));
-            int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
-            float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
-            int year = cursor.getInt(cursor.getColumnIndexOrThrow("year"));
-            int month = cursor.getInt(cursor.getColumnIndexOrThrow("month"));
-            int day = cursor.getInt(cursor.getColumnIndexOrThrow("day"));
-            AccountBean accountBean = new AccountBean(id, typeName, bz, sImgID, money, time, year, month, day, kind);
-            list.add(accountBean);
+        try {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String typeName = cursor.getString(cursor.getColumnIndexOrThrow("typeName"));
+                String bz = cursor.getString(cursor.getColumnIndexOrThrow("tip"));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
+                int sImgID = cursor.getInt(cursor.getColumnIndexOrThrow("sImgID"));
+                int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
+                int year = cursor.getInt(cursor.getColumnIndexOrThrow("year"));
+                int month = cursor.getInt(cursor.getColumnIndexOrThrow("month"));
+                int day = cursor.getInt(cursor.getColumnIndexOrThrow("day"));
+                AccountBean accountBean = new AccountBean(id, typeName, bz, sImgID, money, time, year, month, day, kind);
+                list.add(accountBean);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return list;
     }
@@ -179,9 +227,17 @@ public class DBManager {
         List<Integer> list=new ArrayList<>();
         String sql="select distinct(year) from accounttb order by year asc";
         Cursor cursor= db.rawQuery(sql,null);
-        while (cursor.moveToNext()){
-            int year = cursor.getInt(cursor.getColumnIndexOrThrow("year"));
-            list.add(year);
+        try {
+            while (cursor.moveToNext()){
+                int year = cursor.getInt(cursor.getColumnIndexOrThrow("year"));
+                list.add(year);
+            }
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return list;
     }

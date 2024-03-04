@@ -48,6 +48,7 @@ public class RecordActivity extends AppCompatActivity {
 //        将TabLayout和ViewPager进行关联
         tabLayout.setupWithViewPager(viewPager);
     }
+
     /*点击事件*/
     public void onClick(View view) {
         if (view.getId() == R.id.record_iv_back) {
